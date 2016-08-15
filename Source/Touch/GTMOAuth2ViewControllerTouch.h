@@ -41,15 +41,15 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-extern NSString *const kGTMOAuth2KeychainErrorDomain;
-
-// Notifications that the view controller is swapping out and back in cookies.
-// Apps may use this to avoid relying on the cookie store while view controller
-// has them swapped out.
-extern NSString *const kGTMOAuth2CookiesWillSwapOut;
-extern NSString *const kGTMOAuth2CookiesDidSwapIn;
-
+    
+    extern NSString *const kGTMOAuth2KeychainErrorDomain;
+    
+    // Notifications that the view controller is swapping out and back in cookies.
+    // Apps may use this to avoid relying on the cookie store while view controller
+    // has them swapped out.
+    extern NSString *const kGTMOAuth2CookiesWillSwapOut;
+    extern NSString *const kGTMOAuth2CookiesDidSwapIn;
+    
 #ifdef __cplusplus
 }
 #endif
@@ -60,82 +60,87 @@ extern NSString *const kGTMOAuth2CookiesDidSwapIn;
 typedef void (^GTMOAuth2ViewControllerCompletionHandler)(GTMOAuth2ViewControllerTouch *viewController, GTMOAuth2Authentication *auth, NSError *error);
 
 @interface GTMOAuth2ViewControllerTouch : UIViewController<UINavigationControllerDelegate, UIWebViewDelegate> {
- @private
-  UIButton *backButton_;
-  UIButton *forwardButton_;
-  UIActivityIndicatorView *initialActivityIndicator_;
-  UIView *navButtonsView_;
-  UIBarButtonItem *rightBarButtonItem_;
-  UIWebView *webView_;
-
-  // The object responsible for the sign-in networking sequence; it holds
-  // onto the authentication object as well.
-  GTMOAuth2SignIn *signIn_;
-
-  // the page request to load when awakeFromNib occurs
-  NSURLRequest *request_;
-
-  // The user we're calling back
-  //
-  // The delegate is retained only until the callback is invoked
-  // or the sign-in is canceled
-  id delegate_;
-  SEL finishedSelector_;
-
+@private
+    UIButton *backButton_;
+    UIButton *forwardButton_;
+    UIActivityIndicatorView *initialActivityIndicator_;
+    UIView *navButtonsView_;
+    UIBarButtonItem *rightBarButtonItem_;
+    UIWebView *webView_;
+    
+    // The object responsible for the sign-in networking sequence; it holds
+    // onto the authentication object as well.
+    GTMOAuth2SignIn *signIn_;
+    
+    // the page request to load when awakeFromNib occurs
+    NSURLRequest *request_;
+    
+    // The user we're calling back
+    //
+    // The delegate is retained only until the callback is invoked
+    // or the sign-in is canceled
+    id delegate_;
+    SEL finishedSelector_;
+    
 #if NS_BLOCKS_AVAILABLE
-  GTMOAuth2ViewControllerCompletionHandler completionBlock_;
-
-  void (^popViewBlock_)(void);
+    GTMOAuth2ViewControllerCompletionHandler completionBlock_;
+    
+    void (^popViewBlock_)(void);
 #endif
-
-  NSString *keychainItemName_;
-  CFTypeRef keychainItemAccessibility_;
-
-  // if non-nil, the html string to be displayed immediately upon opening
-  // of the web view
-  NSString *initialHTMLString_;
-
-  // set to 1 or -1 if the user sets the showsInitialActivityIndicator
-  // property
-  int mustShowActivityIndicator_;
-
-  // if non-nil, the URL for which cookies will be deleted when the
-  // browser view is dismissed
-  NSURL *browserCookiesURL_;
-
-  id userData_;
-  NSMutableDictionary *properties_;
-
+    
+    NSString *keychainItemName_;
+    CFTypeRef keychainItemAccessibility_;
+    
+    // if non-nil, the html string to be displayed immediately upon opening
+    // of the web view
+    NSString *initialHTMLString_;
+    
+    // set to 1 or -1 if the user sets the showsInitialActivityIndicator
+    // property
+    int mustShowActivityIndicator_;
+    
+    // if non-nil, the URL for which cookies will be deleted when the
+    // browser view is dismissed
+    NSURL *browserCookiesURL_;
+    
+    id userData_;
+    NSMutableDictionary *properties_;
+    
 #if __IPHONE_OS_VERSION_MIN_REQUIRED < 60000
-  // We delegate the decision to our owning NavigationController (if any).
-  // But, the NavigationController will call us back, and ask us.
-  // BOOL keeps us from infinite looping.
-  BOOL isInsideShouldAutorotateToInterfaceOrientation_;
+    // We delegate the decision to our owning NavigationController (if any).
+    // But, the NavigationController will call us back, and ask us.
+    // BOOL keeps us from infinite looping.
+    BOOL isInsideShouldAutorotateToInterfaceOrientation_;
 #endif
-
-  // YES, when view first shown in this signIn session.
-  BOOL isViewShown_;
-
-  // YES, after the view has fully transitioned in.
-  BOOL didViewAppear_;
-
-  // YES between sends of start and stop notifications
-  BOOL hasNotifiedWebViewStartedLoading_;
-
-  // To prevent us from calling our delegate's selector more than once.
-  BOOL hasCalledFinished_;
-
-  // Set in a webView callback.
-  BOOL hasDoneFinalRedirect_;
-
-  // Set during the pop initiated by the sign-in object; otherwise,
-  // viewWillDisappear indicates that some external change of the view
-  // has stopped the sign-in.
-  BOOL didDismissSelf_;
-
-  // Work around default cookie policy bug in iOS 7; see comments in viewWillAppear.
-  NSHTTPCookieAcceptPolicy savedCookiePolicy_;
+    
+    // YES, when view first shown in this signIn session.
+    BOOL isViewShown_;
+    
+    // YES, after the view has fully transitioned in.
+    BOOL didViewAppear_;
+    
+    // YES between sends of start and stop notifications
+    BOOL hasNotifiedWebViewStartedLoading_;
+    
+    // To prevent us from calling our delegate's selector more than once.
+    BOOL hasCalledFinished_;
+    
+    // Set in a webView callback.
+    BOOL hasDoneFinalRedirect_;
+    
+    // Set during the pop initiated by the sign-in object; otherwise,
+    // viewWillDisappear indicates that some external change of the view
+    // has stopped the sign-in.
+    BOOL didDismissSelf_;
+    
+    // Work around default cookie policy bug in iOS 7; see comments in viewWillAppear.
+    NSHTTPCookieAcceptPolicy savedCookiePolicy_;
 }
+
+// If email needs to be prepopulated this property can be used
+@property (nonatomic, strong) NSString *email;
+
+@property (nonatomic) BOOL showRightNavButtons;
 
 // the application and service name to use for saving the auth tokens
 // to the keychain
@@ -371,8 +376,8 @@ typedef void (^GTMOAuth2ViewControllerCompletionHandler)(GTMOAuth2ViewController
 // it too, to store passwords.
 
 typedef NS_ENUM(NSInteger, GTMOAuth2KeychainError) {
-  GTMOAuth2KeychainErrorBadArguments = -1301,
-  GTMOAuth2KeychainErrorNoPassword = -1302
+    GTMOAuth2KeychainErrorBadArguments = -1301,
+    GTMOAuth2KeychainErrorNoPassword = -1302
 };
 
 #if !GTMOAUTH2AUTHENTICATION_DEPRECATE_OLD_ENUMS
