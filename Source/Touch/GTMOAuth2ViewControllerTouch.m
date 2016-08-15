@@ -708,10 +708,10 @@ finishedWithAuth:(GTMOAuth2Authentication *)auth
 
 - (void)viewWillAppear:(BOOL)animated {
     // See the comment on clearBrowserCookies in viewWillDisappear.
-    [[NSNotificationCenter defaultCenter] postNotificationName:kGTMOAuth2CookiesWillSwapOut
-                                                        object:self
-                                                      userInfo:nil];
-    [self swapOutCookies];
+    //    [[NSNotificationCenter defaultCenter] postNotificationName:kGTMOAuth2CookiesWillSwapOut
+    //                                                        object:self
+    //                                                      userInfo:nil];
+    //    [self swapOutCookies];
     
     if (!isViewShown_) {
         isViewShown_ = YES;
@@ -775,10 +775,10 @@ finishedWithAuth:(GTMOAuth2Authentication *)auth
         }
     }
     
-    [self swapInCookies];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kGTMOAuth2CookiesDidSwapIn
-                                                        object:self
-                                                      userInfo:nil];
+    //    [self swapInCookies];
+    //    [[NSNotificationCenter defaultCenter] postNotificationName:kGTMOAuth2CookiesDidSwapIn
+    //                                                        object:self
+    //                                                      userInfo:nil];
     [super viewWillDisappear:animated];
 }
 
